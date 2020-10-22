@@ -76,5 +76,27 @@ module ActiveForm
 
       assert_nil(finder.find(id: @user.id))
     end
+
+    def test_find_with_met_conditions
+      form = Minitest::Mock.new
+      finder = AssociationFinder.new(
+        name: :user,
+        form: form,
+        conditions: -> { active }
+      )
+
+      assert_instance_of(User, finder.find(id: @user.id))
+    end
+
+    def test_find_with_not_met_conditions
+      form = Minitest::Mock.new
+      finder = AssociationFinder.new(
+        name: :user,
+        form: form,
+        conditions: -> { where(active: false) }
+      )
+
+      assert_nil(finder.find(id: @user.id))
+    end
   end
 end
