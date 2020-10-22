@@ -1,9 +1,16 @@
 # frozen_string_literal: true
 
-require "active_support/core_ext/object/deep_dup"
-
 module ActiveForm
   class AssociationAttributeSet
+    def self.build(associations:, form:)
+      new.tap do |set|
+        associations.each do |name, options|
+          finder = AssociationFinder.new(options.merge(form: form))
+          set[name] = Association.new(finder: finder)
+        end
+      end
+    end
+
     def initialize(associations = {})
       @associations = associations
     end
@@ -18,6 +25,14 @@ module ActiveForm
 
     def write_association_value(name, value)
       associations[name].current_value = value
+    end
+
+    def read_association_id(name)
+      associations[name].id
+    end
+
+    def write_association_id(name, id)
+      associations[name].id = id
     end
 
     def to_hash
