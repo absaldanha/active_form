@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-class User
-  def self.find_by(*)
-    "a result"
-  end
+class User < ActiveRecord::Base
+  belongs_to :account
 end

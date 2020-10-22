@@ -2,13 +2,13 @@
 
 module ActiveForm
   class Association
-    attr_reader :id, :finder, :loaded
+    attr_reader :finder, :id, :loaded
 
-    def initialize(id: nil, finder:, current_value: nil, loaded: false)
+    def initialize(finder:, id: nil, current_value: nil, loaded: false)
+      @finder = finder
       @id = id
       @loaded = loaded
       @current_value = current_value
-      @finder = finder
     end
 
     def current_value
