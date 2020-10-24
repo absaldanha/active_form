@@ -18,8 +18,13 @@ module ActiveForm
       end
     end
 
-    def self.has_one(name:, form:, value: nil, **options)
-      HasOne.new(name: name, form: form, value: value, finder_options: options)
+    def self.has_one(name:, form:, default: nil, **finder_options)
+      HasOne.new(
+        name: name,
+        form: form,
+        default: default,
+        finder_options: finder_options
+      )
     end
   end
 end

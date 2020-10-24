@@ -5,12 +5,12 @@ module ActiveForm
     class Base
       attr_reader :name, :key, :form
 
-      def initialize(name:, form:, value: nil, finder_options: {})
+      def initialize(name:, form:, default: nil, finder_options: {})
         @name = name
         @form = form
         @finder_options = finder_options
 
-        initialize_value(value)
+        initialize_value(default)
       end
 
       def value=(new_value)
