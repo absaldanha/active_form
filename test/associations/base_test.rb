@@ -44,7 +44,7 @@ module ActiveForm
         proc_value = -> { DummyValue.new(1) }
         form = Minitest::Mock.new
 
-        assoc = TestWithAssign.new(name: :foo, form: form, value: proc_value)
+        assoc = TestWithAssign.new(name: :foo, form: form, default: proc_value)
 
         assert_instance_of(DummyValue, assoc.value)
         assert(assoc.loaded?)
@@ -54,7 +54,7 @@ module ActiveForm
         form = Minitest::Mock.new
 
         assert_raises(ActiveForm::InvalidAssociationDefault) do
-          TestWithAssign.new(name: :foo, form: form, value: "value")
+          TestWithAssign.new(name: :foo, form: form, default: "value")
         end
       end
 
@@ -75,7 +75,7 @@ module ActiveForm
         form = Minitest::Mock.new
         proc_value = -> { DummyValue.new(1) }
 
-        assoc = TestWithFinder.new(name: :foo, form: form, value: proc_value)
+        assoc = TestWithFinder.new(name: :foo, form: form, default: proc_value)
 
         assert_instance_of(DummyValue, assoc.value)
       end
