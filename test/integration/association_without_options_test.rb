@@ -9,7 +9,7 @@ module ActiveForm
     class TestForm
       include ActiveForm::Form
 
-      association :user
+      has_one :user
     end
 
     def test_generates_association_accessors

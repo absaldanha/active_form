@@ -13,6 +13,7 @@ end
 require "bundler/setup"
 require "active_form"
 require "minitest/autorun"
+require "minitest/focus"
 require "minitest/reporters"
 
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]

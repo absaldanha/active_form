@@ -5,52 +5,35 @@ module ActiveForm
     extend ActiveSupport::Concern
 
     included do
-      class_attribute :associations, instance_accessor: false,
+      class_attribute :association_options, instance_accessor: false,
         default: {}
     end
 
     class_methods do
-      def association(assoc_name, **options)
-        name = assoc_name.to_sym
+      def has_one(assoc_name, **options)
+        options = options.merge(name: assoc_name, type: :has_one)
 
-        build_association_attribute(name, options)
-        define_association_methods(name)
+        store_association(name: assoc_name, options: options)
+        build_association_methods(name: assoc_name, type: :has_one)
       end
 
       private
 
-      def build_association_attribute(name, options)
-        self.associations = associations.deep_dup
-
-        associations[name] = options.merge(name: name)
+      def store_association(name:, options:)
+        self.association_options = association_options.deep_dup
+        association_options[name] = options
       end
 
-      def define_association_methods(name)
-        class_eval(<<-RUBY, __FILE__, __LINE__ + 1)
-          def #{name}
-            association_set.read_association_value(:#{name})
-          end
-
-          def #{name}=(new_assoc)
-            association_set.write_association_value(:#{name}, new_value)
-          end
-
-          def #{name}_id
-            association_set.read_association_id(:#{name})
-          end
-
-          def #{name}_id=(new_id)
-            association_set.write_association_id(:#{name}, new_id)
-          end
-        RUBY
+      def build_association_methods(name:, type:)
+        AssociationMethodBuilder.generate(name: name, klass: self)
       end
     end
 
-    attr_reader :association_set
+    attr_reader :associations
 
     def initialize(*)
-      @association_set = AssociationAttributeSet.build(
-        associations: self.class.associations.deep_dup,
+      @associations = Associations.build_from_options(
+        options: self.class.association_options.deep_dup,
         form: self
       )
 

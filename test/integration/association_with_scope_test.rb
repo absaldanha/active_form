@@ -10,7 +10,7 @@ module ActiveForm
     class SampleWithAttribute
       include ActiveForm::Form
 
-      association :user, scope: :account_id
+      has_one :user, scope: :account_id
 
       attribute :account_id, :integer
     end
@@ -18,8 +18,8 @@ module ActiveForm
     class SampleWithAssociation
       include ActiveForm::Form
 
-      association :user, scope: :account_id
-      association :account
+      has_one :user, scope: :account_id
+      has_one :account
     end
 
     def setup
