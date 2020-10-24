@@ -30,6 +30,8 @@ GEM
     jaro_winkler (1.5.4)
     method_source (1.0.0)
     minitest (5.14.2)
+    minitest-focus (1.2.1)
+      minitest (>= 4, < 6)
     minitest-reporters (1.4.2)
       ansi
       builder
@@ -73,6 +75,7 @@ PLATFORMS
 DEPENDENCIES
   active_form!
   minitest (~> 5.14)
+  minitest-focus (~> 1.2)
   minitest-reporters (~> 1.4)
   pry-byebug (~> 3.7)
   rake (~> 13.0)

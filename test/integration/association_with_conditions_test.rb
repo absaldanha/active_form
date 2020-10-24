@@ -9,13 +9,13 @@ module ActiveForm
     class FormUserActive
       include ActiveForm::Form
 
-      association :user, conditions: -> { active }
+      has_one :user, conditions: -> { active }
     end
 
     class FormUserInactive
       include ActiveForm::Form
 
-      association :user, conditions: -> { where(active: false) }
+      has_one :user, conditions: -> { where(active: false) }
     end
 
     def setup
