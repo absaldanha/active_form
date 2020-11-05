@@ -15,10 +15,24 @@ module ActiveForm
           end
         end
 
-        def test_load_finds_on_correct_class
+        def test_load_finds_on_default_class_name
           loader = TestLoader.new(name: :user)
 
           assert_equal(User, loader.load(123, Object.new))
+        end
+
+        def test_load_finds_on_custom_class_name
+          loader = TestLoader.new(name: :owner_user, class_name: "User")
+
+          assert_equal(User, loader.load(123, Object.new))
+        end
+
+        def test_load_unknown_class_name
+          loader = TestLoader.new(name: :foo)
+
+          assert_raises(InvalidClassName) do
+            loader.load(123, Object.new)
+          end
         end
 
         def test_load_with_scope_on_one_value

@@ -23,4 +23,10 @@ module ActiveForm
       )
     end
   end
+
+  class InvalidClassName < Error
+    def initialize(finder_class, name)
+      super("Unknown constant #{finder_class} for association #{name}")
+    end
+  end
 end
