@@ -4,12 +4,13 @@ module ActiveForm
   class Association
     module Loaders
       class Base
-        attr_reader :name, :scope, :conditions
+        attr_reader :name, :scope, :conditions, :class_name
 
-        def initialize(name:, scope: nil, conditions: nil)
+        def initialize(name:, scope: nil, conditions: nil, class_name: nil)
           @name = name
           @scope = scope
           @conditions = conditions
+          @class_name = class_name
         end
 
         def load(key, form)
@@ -19,17 +20,14 @@ module ActiveForm
             .yield_self { |relation| find_by_key(relation, key) }
         end
 
-        def initialize_dup(*)
-          @scope = @scope.deep_dup
-          @conditions = @conditions.deep_dup
-
-          super
-        end
-
         private
 
         def finder_class
-          name.to_s.classify.constantize
+          finder_class = (class_name || name).to_s.classify
+
+          Object.const_get(finder_class)
+        rescue NameError
+          raise InvalidClassName.new(finder_class, name)
         end
 
         def scope_relation(relation, form)
