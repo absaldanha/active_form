@@ -2,7 +2,7 @@
 
 require "test_helper"
 require "support/database_setup"
-require "models/user"
+require "support/models/user"
 
 module ActiveForm
   class AssociationWithoutOptionsTest < Minitest::Test

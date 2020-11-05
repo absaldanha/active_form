@@ -2,7 +2,7 @@
 
 require "test_helper"
 require "support/database_setup"
-require "models/team"
+require "support/models/team"
 
 module ActiveForm
   class AssociationWithDefaultTest < Minitest::Test

@@ -47,6 +47,9 @@ Metrics/AbcSize:
   Exclude:
     - test/**/*.rb
 
+Naming/PredicateName:
+  AllowedMethods: ["has_one"]
+
 Style/AsciiComments:
   Enabled: false
 

@@ -8,7 +8,7 @@ module ActiveForm
       include ActiveModel::Attributes
       include ActiveModel::AttributeAssignment
       include ActiveModel::Validations
-      include AssociationAttributes
+      include DSL
     end
 
     def initialize(attributes = {})

@@ -2,8 +2,8 @@
 
 require "test_helper"
 require "support/database_setup"
-require "models/account"
-require "models/user"
+require "support/models/account"
+require "support/models/user"
 
 module ActiveForm
   class AssociationWithScopeTest < Minitest::Test
