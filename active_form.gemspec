@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.require_path = "lib"
 
-  spec.add_dependency "activerecord", ">= 5.2", "<= 6.0"
+  spec.add_dependency "activerecord", ">= 5.2"
 
   spec.add_development_dependency "minitest", "~> 5.14"
   spec.add_development_dependency "minitest-focus", "~> 1.2"
