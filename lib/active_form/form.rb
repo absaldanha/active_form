@@ -10,16 +10,16 @@ module ActiveForm
       include ActiveModel::Validations
       include ActiveModel::Validations::Callbacks
       include DSL
+
+      def attributes
+        super.merge(association_set.to_h)
+      end
     end
 
     def initialize(attributes = {})
       super()
 
       assign_attributes(attributes) if attributes
-    end
-
-    def attributes
-      super.merge(association_set.to_h)
     end
   end
 end

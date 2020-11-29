@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/database_setup"
+require "support/models/user"
+require "support/models/team"
+require "support/models/account"
 
 module ActiveForm
   class FormInheritanceTest < Minitest::Test
@@ -9,15 +13,15 @@ module ActiveForm
     end
 
     class FooForm < MainForm
-      has_one :foo
+      has_one :user
     end
 
     class BarForm < MainForm
-      has_one :bar
+      has_one :account
     end
 
     class LittleFoo < FooForm
-      has_one :lil_foo
+      has_one :team
     end
 
     def test_inheritance_across_forms
@@ -26,21 +30,21 @@ module ActiveForm
       bar = BarForm.new
       lil_foo = LittleFoo.new
 
-      assert_respond_to(lil_foo, :lil_foo)
-      assert_respond_to(lil_foo, :foo)
-      refute_respond_to(lil_foo, :bar)
+      assert_respond_to(lil_foo, :team)
+      assert_respond_to(lil_foo, :user)
+      refute_respond_to(lil_foo, :account)
 
-      assert_respond_to(foo, :foo)
-      refute_respond_to(foo, :lil_foo)
-      refute_respond_to(foo, :bar)
+      assert_respond_to(foo, :user)
+      refute_respond_to(foo, :team)
+      refute_respond_to(foo, :account)
 
-      assert_respond_to(bar, :bar)
-      refute_respond_to(bar, :foo)
-      refute_respond_to(bar, :lil_foo)
+      assert_respond_to(bar, :account)
+      refute_respond_to(bar, :user)
+      refute_respond_to(bar, :team)
 
-      refute_respond_to(main, :foo)
-      refute_respond_to(main, :lil_foo)
-      refute_respond_to(main, :bar)
+      refute_respond_to(main, :user)
+      refute_respond_to(main, :team)
+      refute_respond_to(main, :account)
     end
   end
 end

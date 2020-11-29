@@ -35,7 +35,9 @@ module ActiveForm
     end
 
     def to_h
-      associations.transform_keys(&:to_s)
+      associations.keys.each_with_object({}) do |assoc_name, hash|
+        hash[assoc_name.to_s] = read_value(assoc_name)
+      end
     end
 
     private
