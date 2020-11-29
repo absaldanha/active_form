@@ -7,7 +7,7 @@ module ActiveForm
         private
 
         def find_by_key(relation, key)
-          relation.find_by(id: key)
+          relation.find_by(id: key) if key
         end
       end
     end
