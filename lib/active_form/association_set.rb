@@ -34,6 +34,10 @@ module ActiveForm
       fetch(assoc_name).key = new_key
     end
 
+    def to_h
+      associations.transform_keys(&:to_s)
+    end
+
     private
 
     attr_reader :associations

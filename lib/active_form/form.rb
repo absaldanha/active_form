@@ -8,6 +8,7 @@ module ActiveForm
       include ActiveModel::Attributes
       include ActiveModel::AttributeAssignment
       include ActiveModel::Validations
+      include ActiveModel::Validations::Callbacks
       include DSL
     end
 
@@ -15,6 +16,10 @@ module ActiveForm
       super()
 
       assign_attributes(attributes) if attributes
+    end
+
+    def attributes
+      super.merge(association_set.to_h)
     end
   end
 end
